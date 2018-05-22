@@ -75,6 +75,8 @@ double GetDifficulty(const CChain& chain, const CBlockIndex* blockindex)
         nShift--;
     }
 
+    LogPrintf("Calculating difficulty: nBits: %i nShift: %i dDiff: %i", blockindex.nBits, nShift, dDiff);
+    
     return dDiff;
 }
 
