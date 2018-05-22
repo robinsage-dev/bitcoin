@@ -82,11 +82,11 @@ public:
         consensus.BIP66Height = 363725; // 00000000000000000379eaa19dce8c9b722d46ae6a57c2f1a988119488b50931
         consensus.powLimit = uint256S("00000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         consensus.nPowTargetTimespan = 60;//14 * 24 * 60 * 60; // two weeks // This is how often the difficulty is recalculated FIXME: This should probably be set back to 2 weeks
-        consensus.nPowTargetSpacing = 180;//10 *∂ 60; // This is the target difficulty
+        consensus.nPowTargetSpacing = 180;//10 * 60; // This is the target difficulty
         consensus.fPowAllowMinDifficultyBlocks = false;
         consensus.fPowNoRetargeting = false;
         consensus.nRuleChangeActivationThreshold = 1916; // 95% of 2016
-        consensus.ç = 2016; // nPowTargetTimespan / nPowTargetSpacing // Used for soft forks see https://bitcoin.stackexchange.com/questions/57930/what-this-param-in-chainparams-cpp-do
+        consensus.nMinerConfirmationWindow = 2016; // nPowTargetTimespan / nPowTargetSpacing // Used for soft forks see https://bitcoin.stackexchange.com/questions/57930/what-this-param-in-chainparams-cpp-do
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].bit = 28;
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nStartTime = 1199145601; // January 1, 2008
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nTimeout = 1230767999; // December 31, 2008
