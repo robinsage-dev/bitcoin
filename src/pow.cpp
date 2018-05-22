@@ -69,7 +69,7 @@ unsigned int CalculateNextWorkRequired(const CBlockIndex* pindexLast, int64_t nF
         bnNew = bnPowLimit;
 
     // FIXME: remove, for debugging only
-    LogPrint(BCLog::RPC, "Calculating Work Required: Blocktime: %i, nFirstBlockTime: %i, Timespan (secs): %i, Target Timespan: %i, bnNew: %i\n", pindexLast->GetBlockTime(), nFirstBlockTime, nActualTimespan, params.nPowTargetTimespan, bnNew.GetCompact());
+    LogPrintf("Calculating Work Required: Blocktime: %i, nFirstBlockTime: %i, Timespan (secs): %i, Target Timespan: %i, bnNew: %i\n", pindexLast->GetBlockTime(), nFirstBlockTime, nActualTimespan, params.nPowTargetTimespan, bnNew.GetCompact());
 
     return bnNew.GetCompact();
 }
