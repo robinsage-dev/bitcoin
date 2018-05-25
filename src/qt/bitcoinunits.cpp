@@ -40,9 +40,9 @@ QString BitcoinUnits::longName(int unit)
 {
     switch(unit)
     {
-    case BTC: return QString("BTC");
-    case mBTC: return QString("mBTC");
-    case uBTC: return QString::fromUtf8("µBTC (bits)");
+    case BTC: return QString("KALA"); //QString("BTC");
+    case mBTC: return QString("mKALA"); //QString("mBTC");
+    case uBTC: return QString::fromUtf8("µKALA (bits)"); //QString::fromUtf8("µBTC (bits)");
     default: return QString("???");
     }
 }
@@ -60,9 +60,9 @@ QString BitcoinUnits::description(int unit)
 {
     switch(unit)
     {
-    case BTC: return QString("Bitcoins");
-    case mBTC: return QString("Milli-Bitcoins (1 / 1" THIN_SP_UTF8 "000)");
-    case uBTC: return QString("Micro-Bitcoins (bits) (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+    case BTC: return QString("Kala"); //return QString("Bitcoins");
+    case mBTC: return QString("Milli-Kala (1 / 1" THIN_SP_UTF8 "000)"); //QString("Milli-Bitcoins (1 / 1" THIN_SP_UTF8 "000)");
+    case uBTC: return QString("Micro-Kala (kbits) (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)"); //QString("Micro-Bitcoins (bits) (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
     default: return QString("???");
     }
 }
