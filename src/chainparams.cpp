@@ -81,12 +81,12 @@ public:
         consensus.BIP65Height = 388381; // 000000000000000004c2b624ed5d7756c508d90fd0da2c7c679febfa6c4735f0
         consensus.BIP66Height = 363725; // 00000000000000000379eaa19dce8c9b722d46ae6a57c2f1a988119488b50931
         consensus.powLimit = uint256S("00000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
-        consensus.nPowTargetTimespan = 180;//14 * 24 * 60 * 60; // two weeks // This is how often the difficulty is recalculated FIXME: This should probably be set back to 2 weeks
+        consensus.nPowTargetTimespan = 60 * 60;//14 * 24 * 60 * 60; // two weeks // This is how often the difficulty is recalculated FIXME: This should probably be set back to 2 weeks
         consensus.nPowTargetSpacing = 60;//10 * 60; // This is the target blocktime
         consensus.fPowAllowMinDifficultyBlocks = false;
         consensus.fPowNoRetargeting = false;
-        consensus.nRuleChangeActivationThreshold = 1916; // 95% of 2016
-        consensus.nMinerConfirmationWindow = 2016; // nPowTargetTimespan / nPowTargetSpacing // Used for soft forks see https://bitcoin.stackexchange.com/questions/57930/what-this-param-in-chainparams-cpp-do
+        consensus.nRuleChangeActivationThreshold = 57;//1916; // 95% of 2016
+        consensus.nMinerConfirmationWindow = 60;//2016 // nPowTargetTimespan / nPowTargetSpacing // Used for soft forks see https://bitcoin.stackexchange.com/questions/57930/what-this-param-in-chainparams-cpp-do
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].bit = 28;
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nStartTime = 1199145601; // January 1, 2008
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nTimeout = 1230767999; // December 31, 2008
@@ -197,12 +197,12 @@ public:
         consensus.BIP65Height = 581885; // 00000000007f6655f22f98e72ed80d8b06dc761d5da09df0fa1dc4be4f861eb6
         consensus.BIP66Height = 330776; // 000000002104c8c45e99a8853285a3b592602a3ccde2b832481da85e9e4ba182
         consensus.powLimit = uint256S("00000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
-        consensus.nPowTargetTimespan = 180;//14 * 24 * 60 * 60; // two weeks // This is how often the difficulty is recalculated FIXME: This should probably be set back to 2 weeks
+        consensus.nPowTargetTimespan = 60 * 60;//14 * 24 * 60 * 60; // two weeks // This is how often the difficulty is recalculated FIXME: This should probably be set back to 2 weeks
         consensus.nPowTargetSpacing = 60;//10 * 60; // This is the target blocktime
         consensus.fPowAllowMinDifficultyBlocks = true;
         consensus.fPowNoRetargeting = false;
-        consensus.nRuleChangeActivationThreshold = 1512; // 75% for testchains
-        consensus.nMinerConfirmationWindow = 2016; // nPowTargetTimespan / nPowTargetSpacing // Used for soft forks see https://bitcoin.stackexchange.com/questions/57930/what-this-param-in-chainparams-cpp-do
+        consensus.nRuleChangeActivationThreshold = 45;//1512; // 75% for testchains
+        consensus.nMinerConfirmationWindow = 60;//2016; // nPowTargetTimespan / nPowTargetSpacing // Used for soft forks see https://bitcoin.stackexchange.com/questions/57930/what-this-param-in-chainparams-cpp-do
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].bit = 28;
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nStartTime = 1199145601; // January 1, 2008
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nTimeout = 1230767999; // December 31, 2008
@@ -243,7 +243,7 @@ public:
         // vSeeds.emplace_back("seed.testnet.bitcoin.sprovoost.nl");
         // vSeeds.emplace_back("testnet-seed.bluematt.me"); // Just a static list of stable node(s), only supports x9
 
-        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,107);//111);
+        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,111);//107);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,196);
         base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,239);
         base58Prefixes[EXT_PUBLIC_KEY] = {0x04, 0x35, 0x87, 0xCF};
@@ -290,12 +290,12 @@ public:
         consensus.BIP65Height = 1351; // BIP65 activated on regtest (Used in rpc activation tests)
         consensus.BIP66Height = 1251; // BIP66 activated on regtest (Used in rpc activation tests)
         consensus.powLimit = uint256S("7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
-        consensus.nPowTargetTimespan = 180;//14 * 24 * 60 * 60; // two weeks // This is how often the difficulty is recalculated FIXME: This should probably be set back to 2 weeks
+        consensus.nPowTargetTimespan = 60 * 60;//14 * 24 * 60 * 60; // two weeks // This is how often the difficulty is recalculated FIXME: This should probably be set back to 2 weeks
         consensus.nPowTargetSpacing = 60;//10 * 60; // This is the target blocktime
         consensus.fPowAllowMinDifficultyBlocks = true;
         consensus.fPowNoRetargeting = true;
-        consensus.nRuleChangeActivationThreshold = 108; // 75% for testchains
-        consensus.nMinerConfirmationWindow = 144; // Faster than normal for regtest (144 instead of 2016) // Used for soft forks see https://bitcoin.stackexchange.com/questions/57930/what-this-param-in-chainparams-cpp-do
+        consensus.nRuleChangeActivationThreshold = 8; // 75% for testchains
+        consensus.nMinerConfirmationWindow = 10; // Faster than normal for regtest (144 instead of 2016) // Used for soft forks see https://bitcoin.stackexchange.com/questions/57930/what-this-param-in-chainparams-cpp-do
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].bit = 28;
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nStartTime = 0;
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nTimeout = Consensus::BIP9Deployment::NO_TIMEOUT;
