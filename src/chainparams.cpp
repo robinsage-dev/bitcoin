@@ -81,7 +81,7 @@ public:
         consensus.BIP65Height = 388381; // 000000000000000004c2b624ed5d7756c508d90fd0da2c7c679febfa6c4735f0
         consensus.BIP66Height = 363725; // 00000000000000000379eaa19dce8c9b722d46ae6a57c2f1a988119488b50931
         consensus.powLimit = uint256S("00000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
-        consensus.nPowTargetTimespan = 60 * 60;//14 * 24 * 60 * 60; // two weeks // This is how often the difficulty is recalculated FIXME: This should probably be set back to 2 weeks
+        consensus.nPowTargetTimespan = 60 * 60;//14 * 24 * 60 * 60; // 1 hour
         consensus.nPowTargetSpacing = 60;//10 * 60; // This is the target blocktime
         consensus.fPowAllowMinDifficultyBlocks = false;
         consensus.fPowNoRetargeting = false;
@@ -104,7 +104,7 @@ public:
         // The best chain should have at least this much work.
         consensus.nMinimumChainWork = uint256S("0x00");//0x000000000000000000000000000000000000000000f91c579d57cad4bc5278cc");
         // By default assume that the signatures in ancestors of this block are valid.
-        consensus.defaultAssumeValid = uint256S("0x0000000000000000005214481d2d96f898e3d5416e43359c145944a909d242e0"); //506067
+        consensus.defaultAssumeValid = uint256S("0x00");//"0x0000000000000000005214481d2d96f898e3d5416e43359c145944a909d242e0"); //506067
 
         /**
          * The message start string is designed to be unlikely to occur in normal data.
@@ -172,10 +172,10 @@ public:
 
         chainTxData = ChainTxData{
             // Data as of block 0000000000000000002d6cca6761c99b3c2e936f9a0e304b7c7651a993f461de (height 506081).
-            1516903077, // * UNIX timestamp of last known number of transactions
-            295363220,  // * total number of transactions between genesis and that timestamp
+            0,//1516903077, // * UNIX timestamp of last known number of transactions
+            0,//295363220,  // * total number of transactions between genesis and that timestamp
                         //   (the tx=... number in the ChainStateFlushed debug.log lines)
-            3.5         // * estimated number of transactions per second after that timestamp
+            0//3.5         // * estimated number of transactions per second after that timestamp
         };
 
         /* disable fallback fee on mainnet */
@@ -197,7 +197,7 @@ public:
         consensus.BIP65Height = 581885; // 00000000007f6655f22f98e72ed80d8b06dc761d5da09df0fa1dc4be4f861eb6
         consensus.BIP66Height = 330776; // 000000002104c8c45e99a8853285a3b592602a3ccde2b832481da85e9e4ba182
         consensus.powLimit = uint256S("00000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
-        consensus.nPowTargetTimespan = 60 * 60;//14 * 24 * 60 * 60; // two weeks // This is how often the difficulty is recalculated FIXME: This should probably be set back to 2 weeks
+        consensus.nPowTargetTimespan = 60 * 60;//14 * 24 * 60 * 60; // 1 hour
         consensus.nPowTargetSpacing = 60;//10 * 60; // This is the target blocktime
         consensus.fPowAllowMinDifficultyBlocks = true;
         consensus.fPowNoRetargeting = false;
@@ -221,7 +221,7 @@ public:
         consensus.nMinimumChainWork = uint256S("0x00");//000000000000000000000000000000000000000000002830dab7f76dbb7d63");
 
         // By default assume that the signatures in ancestors of this block are valid.
-        consensus.defaultAssumeValid = uint256S("0x0000000002e9e7b00e1f6dc5123a04aad68dd0f0968d8c7aa45f6640795c37b1"); //1135275
+        consensus.defaultAssumeValid = uint256S("0x00");//"0x0000000002e9e7b00e1f6dc5123a04aad68dd0f0968d8c7aa45f6640795c37b1"); //1135275
 
         pchMessageStart[0] = 0x2a;//0x0b;
         pchMessageStart[1] = 0x28;//0x11;
@@ -266,9 +266,9 @@ public:
 
         chainTxData = ChainTxData{
             // Data as of block 000000000000033cfa3c975eb83ecf2bb4aaedf68e6d279f6ed2b427c64caff9 (height 1260526)
-            1516903490,
-            17082348,
-            0.09
+            0,//1516903490,
+            0,//17082348,
+            0//0.09
         };
 
         /* enable fallback fee on testnet */
@@ -290,7 +290,7 @@ public:
         consensus.BIP65Height = 1351; // BIP65 activated on regtest (Used in rpc activation tests)
         consensus.BIP66Height = 1251; // BIP66 activated on regtest (Used in rpc activation tests)
         consensus.powLimit = uint256S("7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
-        consensus.nPowTargetTimespan = 60 * 60;//14 * 24 * 60 * 60; // two weeks // This is how often the difficulty is recalculated FIXME: This should probably be set back to 2 weeks
+        consensus.nPowTargetTimespan = 60 * 60;//14 * 24 * 60 * 60; // 1 hour
         consensus.nPowTargetSpacing = 60;//10 * 60; // This is the target blocktime
         consensus.fPowAllowMinDifficultyBlocks = true;
         consensus.fPowNoRetargeting = true;
