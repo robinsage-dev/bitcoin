@@ -58,7 +58,10 @@ bool IsStandard(const CScript& scriptPubKey, txnouttype& whichType, const bool w
 {
     std::vector<std::vector<unsigned char> > vSolutions;
     if (!Solver(scriptPubKey, whichType, vSolutions))
+    {
+        fprintf(stdout, "solver failed\n");
         return false;
+    }
 
     if (whichType == TX_MULTISIG)
     {
@@ -71,10 +74,16 @@ bool IsStandard(const CScript& scriptPubKey, txnouttype& whichType, const bool w
             return false;
     } else if (whichType == TX_NULL_DATA &&
                (!fAcceptDatacarrier || scriptPubKey.size() > nMaxDatacarrierBytes))
+               {
+        fprintf(stdout, "datacarrier failed\n");
           return false;
+               }
 
     else if (!witnessEnabled && (whichType == TX_WITNESS_V0_KEYHASH || whichType == TX_WITNESS_V0_SCRIPTHASH))
+    {
+        fprintf(stdout, "witness failed\n");
         return false;
+    }
 
     return whichType != TX_NONSTANDARD && whichType != TX_WITNESS_UNKNOWN;
 }
@@ -83,6 +92,7 @@ bool IsStandardTx(const CTransaction& tx, std::string& reason, const bool witnes
 {
     if (tx.nVersion > CTransaction::MAX_STANDARD_VERSION || tx.nVersion < 1) {
         reason = "version";
+        fprintf(stdout, "std version failed\n");
         return false;
     }
 
@@ -93,6 +103,7 @@ bool IsStandardTx(const CTransaction& tx, std::string& reason, const bool witnes
     unsigned int sz = GetTransactionWeight(tx);
     if (sz >= MAX_STANDARD_TX_WEIGHT) {
         reason = "tx-size";
+        fprintf(stdout, "txsize failed\n");
         return false;
     }
 
@@ -107,10 +118,12 @@ bool IsStandardTx(const CTransaction& tx, std::string& reason, const bool witnes
         // considered standard.
         if (txin.scriptSig.size() > 1650) {
             reason = "scriptsig-size";
+            fprintf(stdout, "scriptsig-size failed\n");
             return false;
         }
         if (!txin.scriptSig.IsPushOnly()) {
             reason = "scriptsig-not-pushonly";
+            fprintf(stdout, "scriptsig-not-pushonly failed\n");
             return false;
         }
     }
@@ -120,6 +133,7 @@ bool IsStandardTx(const CTransaction& tx, std::string& reason, const bool witnes
     for (const CTxOut& txout : tx.vout) {
         if (!::IsStandard(txout.scriptPubKey, whichType, witnessEnabled)) {
             reason = "scriptpubkey";
+            fprintf(stdout, "scriptpubkey failed\n");
             return false;
         }
 
@@ -127,9 +141,11 @@ bool IsStandardTx(const CTransaction& tx, std::string& reason, const bool witnes
             nDataOut++;
         else if ((whichType == TX_MULTISIG) && (!fIsBareMultisigStd)) {
             reason = "bare-multisig";
+            fprintf(stdout, "bare-multisig failed\n");
             return false;
         } else if (IsDust(txout, ::dustRelayFee)) {
             reason = "dust";
+            fprintf(stdout, "dust failed\n");
             return false;
         }
     }
@@ -137,6 +153,7 @@ bool IsStandardTx(const CTransaction& tx, std::string& reason, const bool witnes
     // only one OP_RETURN txout is permitted
     if (nDataOut > 1) {
         reason = "multi-op-return";
+        fprintf(stdout, "multi-op-return failed\n");
         return false;
     }
 
