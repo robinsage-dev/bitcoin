@@ -27,7 +27,7 @@ static CBlock CreateGenesisBlock(const char* pszTimestamp, const CScript& genesi
 
     CBlock genesis;
     genesis.nTime = nTime;
-    genesis.nBits = nBits;©
+    genesis.nBits = nBits;
     genesis.nNonce = nNonce;
     genesis.nVersion = nVersion;
     genesis.vtx.push_back(MakeTransactionRef(std::move(txNew)));
