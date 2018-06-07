@@ -92,7 +92,7 @@ public:
         consensus.BIP34Hash = uint256();
         consensus.BIP65Height = 0; // BIP65 enabled by default
         consensus.BIP66Height = 0; // BIP66 enabled by default
-        consensus.powLimit = uint256S("00000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
+        consensus.powLimit = uint256S("000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");//00000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         consensus.nPowTargetTimespan = 60 * 60; //14 * 24 * 60 * 60; // 1 hour
         consensus.nPowTargetSpacing = 60;       //10 * 60; // This is the target blocktime
         consensus.fPowAllowMinDifficultyBlocks = false;
@@ -242,7 +242,7 @@ public:
         consensus.BIP34Hash = uint256();
         consensus.BIP65Height = 0; // BIP65 enabled by default
         consensus.BIP66Height = 0; // BIP66 enabled by default
-        consensus.powLimit = uint256S("00000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
+        consensus.powLimit = uint256S("000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");//00000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         consensus.nPowTargetTimespan = 60 * 60; //14 * 24 * 60 * 60; // 1 hour
         consensus.nPowTargetSpacing = 60;       //10 * 60; // This is the target blocktime
         consensus.fPowAllowMinDifficultyBlocks = true;
