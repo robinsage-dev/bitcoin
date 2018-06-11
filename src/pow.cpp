@@ -63,17 +63,17 @@ unsigned int CalculateNextWorkRequired(const CBlockIndex* pindexLast, int64_t nF
     const arith_uint256 bnPowLimit = UintToArith256(params.powLimit);
     arith_uint256 bnNew;
     bnNew.SetCompact(pindexLast->nBits);
-    LogPrintf("bnNew: %i\n", bnNew);
+    // LogPrintf("bnNew: %i\n", bnNew);
     bnNew *= nActualTimespan;
-    LogPrintf("nActualTimespan: %i, bnNew *= nActualTimespan: %i, \n", nActualTimespan, bnNew);
+    // LogPrintf("nActualTimespan: %i, bnNew *= nActualTimespan: %i, \n", nActualTimespan, bnNew);
     bnNew /= params.nPowTargetTimespan;
-    LogPrintf("nPowTargetTimespan: %i, bnNew /= params.nPowTargetTimespan: %i, \n", params.nPowTargetTimespan, bnNew);
+    // LogPrintf("nPowTargetTimespan: %i, bnNew /= params.nPowTargetTimespan: %i, \n", params.nPowTargetTimespan, bnNew);
 
     if (bnNew > bnPowLimit)
         bnNew = bnPowLimit;
 
     // FIXME: remove, for debugging only
-    LogPrintf("Calculating Work Required: Blocktime: %i, nFirstBlockTime: %i, Timespan (secs): %i, Target Timespan: %i, bnNew: %i\n", pindexLast->GetBlockTime(), nFirstBlockTime, nActualTimespan, params.nPowTargetTimespan, bnNew.GetCompact());
+    // LogPrintf("Calculating Work Required: Blocktime: %i, nFirstBlockTime: %i, Timespan (secs): %i, Target Timespan: %i, bnNew: %i\n", pindexLast->GetBlockTime(), nFirstBlockTime, nActualTimespan, params.nPowTargetTimespan, bnNew.GetCompact());
 
     return bnNew.GetCompact();
 }
