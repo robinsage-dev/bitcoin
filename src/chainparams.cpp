@@ -20,6 +20,7 @@ static CBlock CreateGenesisBlock(const char* pszTimestamp, const CScript& genesi
     txNew.nVersion = 1;
     txNew.vin.resize(1);
     txNew.vout.resize(1);
+    // TODO: do we need to change this value v below?
     txNew.vin[0].scriptSig = CScript() << 486604799 << CScriptNum(4) << std::vector<unsigned char>((const unsigned char*)pszTimestamp, (const unsigned char*)pszTimestamp + strlen(pszTimestamp));
     txNew.vout[0].nValue = genesisReward;
     txNew.vout[0].scriptPubKey = genesisOutputScript;
@@ -53,6 +54,9 @@ static CBlock CreateGenesisBlock(uint32_t nTime, uint32_t nNonce, uint32_t nBits
     // const char* pszTimestamp = "Thanks to the Bitcoin team, Kala was made possible.";
     // const CScript genesisOutputScript = CScript() << ParseHex("04d317cea6caa2adc3d872fcd1d31eaf00d4895079c077f20ab10ece193f5901e7f8291d3d44d09c64eaf755fe363478cb8f97582f65dee36139f7b895569912cb") << OP_CHECKSIG;
     return CreateGenesisBlock(pszTimestamp, genesisOutputScript, nTime, nNonce, nBits, nVersion, genesisReward);
+    // const char* pszTimestamp = "Do or do not. There is no try. - Yoda"; //"The Times 03/Jan/2009 Chancellor on brink of second bailout for banks";
+    // const CScript genesisOutputScript = CScript() << ParseHex("04aa30169dc4e36d7a8df807f1ec9dbcfc1214956c512c08d42d67a0e73cbaa54c96b1eb0579da0e3bd8c3be88332a51440a9bd850cc81e6a7d4d1ff5f88d68a03") << OP_CHECKSIG;
+    // return CreateGenesisBlock(pszTimestamp, genesisOutputScript, nTime, nNonce, nBits, nVersion, genesisReward);
 }
 
 void CChainParams::UpdateVersionBitsParameters(Consensus::DeploymentPos d, int64_t nStartTime, int64_t nTimeout)
@@ -89,7 +93,7 @@ public:
         consensus.BIP34Hash = uint256();
         consensus.BIP65Height = 0; // BIP65 enabled by default
         consensus.BIP66Height = 0; // BIP66 enabled by default
-        consensus.powLimit = uint256S("000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");//00000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
+        consensus.powLimit = uint256S("00000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         consensus.nPowTargetTimespan = 60 * 60; //14 * 24 * 60 * 60; // 1 hour
         consensus.nPowTargetSpacing = 60;       //10 * 60; // This is the target blocktime
         consensus.fPowAllowMinDifficultyBlocks = false;
@@ -239,7 +243,7 @@ public:
         consensus.BIP34Hash = uint256();
         consensus.BIP65Height = 0; // BIP65 enabled by default
         consensus.BIP66Height = 0; // BIP66 enabled by default
-        consensus.powLimit = uint256S("000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");//00000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
+        consensus.powLimit = uint256S("00000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         consensus.nPowTargetTimespan = 60 * 60; //14 * 24 * 60 * 60; // 1 hour
         consensus.nPowTargetSpacing = 60;       //10 * 60; // This is the target blocktime
         consensus.fPowAllowMinDifficultyBlocks = true;
@@ -302,6 +306,11 @@ public:
         // consensus.hashGenesisBlock = genesis.GetHash();
         // assert(consensus.hashGenesisBlock == uint256S("0x08ee566477e3a116e078bc3bbdf7b93f6235bcf33ef508c7d24926f27942283f"));
         // assert(genesis.hashMerkleRoot == uint256S("0xf7f03f83222d54f3d2f408e8717660276bff0ad5c3e9bb24e72611bde63d7c94"));
+
+        // genesis = CreateGenesisBlock(1528313371, 3740637, 0x1dffffff, 1, 3000000000 * COIN); // 1231006505, 2083236893, 0x1d00ffff, 1, 50 * COIN);
+        // consensus.hashGenesisBlock = genesis.GetHash();
+        // assert(consensus.hashGenesisBlock == uint256S("000000b20732191e1eff8c1169156db0d4c21936fdceb0fab06bc3644da27e66")); //"0x000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f"));
+        // assert(genesis.hashMerkleRoot == uint256S("23fa9c41d86257c2343f920a300d7eb5796cab0fc3a4f1073f8aa19f1a9ec835"));     //"0x4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b"));
 
         vFixedSeeds.clear();
         vSeeds.clear();
