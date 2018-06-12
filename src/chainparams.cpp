@@ -48,10 +48,10 @@ static CBlock CreateGenesisBlock(const char* pszTimestamp, const CScript& genesi
  */
 static CBlock CreateGenesisBlock(uint32_t nTime, uint32_t nNonce, uint32_t nBits, int32_t nVersion, const CAmount& genesisReward)
 {
-    const char* pszTimestamp = "The Times 03/Jan/2009 Chancellor on brink of second bailout for banks";
-    const CScript genesisOutputScript = CScript() << ParseHex("04678afdb0fe5548271967f1a67130b7105cd6a828e03909a67962e0ea1f61deb649f6bc3f4cef38c4f35504e51ec112de5c384df7ba0b8d578a4c702b6bf11d5f") << OP_CHECKSIG;
-    // const char* pszTimestamp = "Thanks to the Bitcoin team, Kala was made possible.";
-    // const CScript genesisOutputScript = CScript() << ParseHex("04d317cea6caa2adc3d872fcd1d31eaf00d4895079c077f20ab10ece193f5901e7f8291d3d44d09c64eaf755fe363478cb8f97582f65dee36139f7b895569912cb") << OP_CHECKSIG;
+    // const char* pszTimestamp = "The Times 03/Jan/2009 Chancellor on brink of second bailout for banks";
+    // const CScript genesisOutputScript = CScript() << ParseHex("04678afdb0fe5548271967f1a67130b7105cd6a828e03909a67962e0ea1f61deb649f6bc3f4cef38c4f35504e51ec112de5c384df7ba0b8d578a4c702b6bf11d5f") << OP_CHECKSIG;
+    const char* pszTimestamp = "Thanks to the Bitcoin team, Kala was made possible.";
+    const CScript genesisOutputScript = CScript() << ParseHex("04d317cea6caa2adc3d872fcd1d31eaf00d4895079c077f20ab10ece193f5901e7f8291d3d44d09c64eaf755fe363478cb8f97582f65dee36139f7b895569912cb") << OP_CHECKSIG;
     return CreateGenesisBlock(pszTimestamp, genesisOutputScript, nTime, nNonce, nBits, nVersion, genesisReward);
 }
 
