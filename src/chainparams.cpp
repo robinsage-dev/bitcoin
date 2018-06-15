@@ -212,7 +212,7 @@ public:
         strNetworkID = "test";
         consensus.nSubsidyHalvingInterval = 2100000;
         consensus.BIP16Exception = uint256();
-        consensus.BIP34Height = 1; // BIP34 enabled by default
+        consensus.BIP34Height = 0; // BIP34 enabled by default
         consensus.BIP34Hash = uint256();
         consensus.BIP65Height = 1; // BIP65 enabled by default
         consensus.BIP66Height = 1; // BIP66 enabled by default

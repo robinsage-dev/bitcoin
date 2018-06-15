@@ -3262,6 +3262,12 @@ static bool ContextualCheckBlock(const CBlock& block, CValidationState& state, c
         CScript expect = CScript() << nHeight;
         if (block.vtx[0]->vin[0].scriptSig.size() < expect.size() ||
             !std::equal(expect.begin(), expect.end(), block.vtx[0]->vin[0].scriptSig.begin())) {
+            // KALA: debug only. remove
+            LogPrintf("Block rejected: %s", block.ToString().c_str());
+            LogPrintf("nHeight: %i\n", nHeight);
+            LogPrintf("block.vtx[0]->vin[0].scriptSig.size() < expect.size(): %i block.vtx[0]->vin[0].scriptSig.size(): %i expect.size(): %i\n", block.vtx[0]->vin[0].scriptSig.size() < expect.size(), block.vtx[0]->vin[0].scriptSig.size(), expect.size());
+            LogPrintf("!std::equal(expect.begin(), expect.end(), block.vtx[0]->vin[0].scriptSig.begin()): %i \n", !std::equal(expect.begin(), expect.end(), block.vtx[0]->vin[0].scriptSig.begin()));
+
             return state.DoS(100, false, REJECT_INVALID, "bad-cb-height", false, "block height mismatch in coinbase");
         }
     }
