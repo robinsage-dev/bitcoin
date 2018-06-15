@@ -2,7 +2,6 @@
     "files.associations": {
         "future": "cpp",
         "__locale": "cpp",
-
         "__split_buffer": "cpp",
         "deque": "cpp",
         "list": "cpp",
@@ -19,6 +18,12 @@
         "algorithm": "cpp",
         "__tree": "cpp",
         "bitset": "cpp",
-        "set": "cpp"
+        "set": "cpp",
+        "string": "cpp",
+        "memory": "cpp",
+        "regex": "cpp",
+        "utility": "cpp",
+        "random": "cpp",
+        "locale": "cpp"
     }
 }
