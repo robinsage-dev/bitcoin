@@ -85,7 +85,7 @@ public:
         // consensus.BIP65Height = 388381; // 000000000000000004c2b624ed5d7756c508d90fd0da2c7c679febfa6c4735f0
         // consensus.BIP66Height = 363725; // 00000000000000000379eaa19dce8c9b722d46ae6a57c2f1a988119488b50931
         consensus.BIP16Exception = uint256();
-        consensus.BIP34Height = 1; // BIP34 enabled by default
+        consensus.BIP34Height = 0; // BIP34 enabled by default
         consensus.BIP34Hash = uint256();
         consensus.BIP65Height = 1; // BIP65 enabled by default
         consensus.BIP66Height = 1; // BIP66 enabled by default
