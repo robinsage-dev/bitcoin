@@ -1110,7 +1110,7 @@ bool ReadBlockFromDisk(CBlock& block, const CDiskBlockPos& pos, const Consensus:
 
     // Check the header
     // Skip check if genesis block (allow low difficulty genesis block)
-    if (block.GetHash() != chainparams.GetConsensus().hashGenesisBlock) {
+    if (block.GetHash() != consensusParams.GetConsensus().hashGenesisBlock) {
         if (!CheckProofOfWork(block.GetHash(), block.nBits, consensusParams))
             return error("ReadBlockFromDisk: Proof of work check failed at %s", pos.ToString());//Errors in block header at %s", pos.ToString());
     }
