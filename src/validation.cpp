@@ -1110,7 +1110,7 @@ bool ReadBlockFromDisk(CBlock& block, const CDiskBlockPos& pos, const Consensus:
 
     // Check the header
     // Skip check if genesis block (allow low difficulty genesis block)
-    if (block.GetHash() != consensusParams.GetConsensus().hashGenesisBlock) {
+    if (block.GetHash() != consensusParams.hashGenesisBlock) {
         if (!CheckProofOfWork(block.GetHash(), block.nBits, consensusParams))
             return error("ReadBlockFromDisk: Proof of work check failed at %s", pos.ToString());//Errors in block header at %s", pos.ToString());
     }
@@ -1141,7 +1141,7 @@ CAmount GetBlockSubsidy(int nHeight, const Consensus::Params& consensusParams)
     if (halvings >= 64)
         return 0;
 
-    CAmount nSubsidy = 5000 * COIN;//50 * COIN;
+    CAmount nSubsidy = 4285 * COIN;//50 * COIN;
     // Subsidy is cut in half every 210,000 blocks which will occur approximately every 4 years.
     nSubsidy >>= halvings;
     return nSubsidy;
@@ -1798,14 +1798,18 @@ bool CChainState::ConnectBlock(const CBlock& block, CValidationState& state, CBl
     // is enforced in ContextualCheckBlockHeader(); we wouldn't want to
     // re-enforce that rule here (at least until we make it impossible for
     // GetAdjustedTime() to go backward).
-    if (!CheckBlock(block, state, chainparams.GetConsensus(), !fJustCheck, !fJustCheck)) {
-        if (state.CorruptionPossible()) {
-            // We don't write down blocks to disk if they may have been
-            // corrupted, so this should be impossible unless we're having hardware
-            // problems.
-            return AbortNode(state, "Corrupt block found indicating potential hardware failure; shutting down");
+    
+    // KALA: Skip genesis block to allow low difficulty genesis block
+    if (block.GetHash() != chainparams.GetConsensus().hashGenesisBlock) {
+        if (!CheckBlock(block, state, chainparams.GetConsensus(), !fJustCheck, !fJustCheck)) {
+            if (state.CorruptionPossible()) {
+                // We don't write down blocks to disk if they may have been
+                // corrupted, so this should be impossible unless we're having hardware
+                // problems.
+                return AbortNode(state, "Corrupt block found indicating potential hardware failure; shutting down");
+            }
+            return error("%s: Consensus::CheckBlock: %s", __func__, FormatStateMessage(state));
         }
-        return error("%s: Consensus::CheckBlock: %s", __func__, FormatStateMessage(state));
     }
 
     // verify that the view's current state corresponds to the previous block

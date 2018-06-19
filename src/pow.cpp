@@ -15,10 +15,13 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
 {
     assert(pindexLast != nullptr);
     unsigned int nProofOfWorkLimit = UintToArith256(params.powLimit).GetCompact();
+    arith_uint256 last_target;
 
-    // Immediately adjust to min. difficulty (genesis block was mined with very low difficulty)
-    if (pindexLast->nBits < nProofOfWorkLimit)
+    // KALA: Immediately adjust to min. difficulty (genesis block was mined with very low difficulty)
+    LogPrintf("Checking for gen block; nBits 0x%lx powLimit: 0x%lx\n", pindexLast->nBits, UintToArith256(params.powLimit).GetCompact());
+    if (last_target.SetCompact(pindexLast->nBits) > UintToArith256(params.powLimit))
     {
+        LogPrintf("Reverting to powLimit: %s", UintToArith256(params.powLimit).ToString().c_str());
         return nProofOfWorkLimit;
     }
 
@@ -32,14 +35,15 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
             // then allow mining of a min-difficulty block.
             if (pblock->GetBlockTime() > pindexLast->GetBlockTime() + params.nPowTargetSpacing*2)
                 return nProofOfWorkLimit;
-            else
-            {
-                // Return the last non-special-min-difficulty-rules-block
-                const CBlockIndex* pindex = pindexLast;
-                while (pindex->pprev && pindex->nHeight % params.DifficultyAdjustmentInterval() != 0 && pindex->nBits == nProofOfWorkLimit)
-                    pindex = pindex->pprev;
-                return pindex->nBits;
-            }
+            // KALA: This was causing difficulty to revert to genesis block difficulty
+            // else
+            // {
+            //     // Return the last non-special-min-difficulty-rules-block
+            //     const CBlockIndex* pindex = pindexLast;
+            //     while (pindex->pprev && pindex->nHeight % params.DifficultyAdjustmentInterval() != 0 && pindex->nBits == nProofOfWorkLimit)
+            //         pindex = pindex->pprev;
+            //     return pindex->nBits;
+            // }
         }
         return pindexLast->nBits;
     }
@@ -94,7 +98,11 @@ bool CheckProofOfWork(uint256 hash, unsigned int nBits, const Consensus::Params&
 
     // Check range
     if (fNegative || bnTarget == 0 || fOverflow || bnTarget > UintToArith256(params.powLimit))
+    // FIXME: kala debug only remove
+    {
+        LogPrintf("fNegative: %i, fOverflow: %i, bnTarget: %s, hash: %s", fNegative, fOverflow, bnTarget.ToString().c_str(), hash.ToString().c_str());
         return false;
+    }
 
     // Check proof of work matches claimed amount
     if (UintToArith256(hash) > bnTarget)
