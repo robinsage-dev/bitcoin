@@ -226,7 +226,7 @@ bool fCheckBlockIndex = false;
 bool fCheckpointsEnabled = DEFAULT_CHECKPOINTS_ENABLED;
 size_t nCoinCacheUsage = 5000 * 300;
 uint64_t nPruneTarget = 0;
-int64_t nMaxTipAge = DEFAULT_MAX_TIP_AGE * 5000;//DEFAULT_MAX_TIP_AGE; // FIXME: Remove for new gen block. This was to use original bitcoin genesis block (i.e. tip age must be larger than years since 2009 when original block was mined)
+int64_t nMaxTipAge = DEFAULT_MAX_TIP_AGE * 90; // KALA: Allow gen block as old as 90 days
 bool fEnableReplacement = DEFAULT_ENABLE_REPLACEMENT;
 
 uint256 hashAssumeValid;

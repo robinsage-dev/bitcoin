@@ -18,10 +18,8 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
     arith_uint256 last_target;
 
     // KALA: Immediately adjust to min. difficulty (genesis block was mined with very low difficulty)
-    LogPrintf("Checking for gen block; nBits 0x%lx powLimit: 0x%lx\n", pindexLast->nBits, UintToArith256(params.powLimit).GetCompact());
     if (last_target.SetCompact(pindexLast->nBits) > UintToArith256(params.powLimit))
     {
-        LogPrintf("Reverting to powLimit: %s", UintToArith256(params.powLimit).ToString().c_str());
         return nProofOfWorkLimit;
     }
 
@@ -73,17 +71,11 @@ unsigned int CalculateNextWorkRequired(const CBlockIndex* pindexLast, int64_t nF
     const arith_uint256 bnPowLimit = UintToArith256(params.powLimit);
     arith_uint256 bnNew;
     bnNew.SetCompact(pindexLast->nBits);
-    // LogPrintf("bnNew: %i\n", bnNew);
     bnNew *= nActualTimespan;
-    // LogPrintf("nActualTimespan: %i, bnNew *= nActualTimespan: %i, \n", nActualTimespan, bnNew);
     bnNew /= params.nPowTargetTimespan;
-    // LogPrintf("nPowTargetTimespan: %i, bnNew /= params.nPowTargetTimespan: %i, \n", params.nPowTargetTimespan, bnNew);
 
     if (bnNew > bnPowLimit)
         bnNew = bnPowLimit;
-
-    // FIXME: remove, for debugging only
-    // LogPrintf("Calculating Work Required: Blocktime: %i, nFirstBlockTime: %i, Timespan (secs): %i, Target Timespan: %i, bnNew: %i\n", pindexLast->GetBlockTime(), nFirstBlockTime, nActualTimespan, params.nPowTargetTimespan, bnNew.GetCompact());
 
     return bnNew.GetCompact();
 }
@@ -98,11 +90,7 @@ bool CheckProofOfWork(uint256 hash, unsigned int nBits, const Consensus::Params&
 
     // Check range
     if (fNegative || bnTarget == 0 || fOverflow || bnTarget > UintToArith256(params.powLimit))
-    // FIXME: kala debug only remove
-    {
-        LogPrintf("fNegative: %i, fOverflow: %i, bnTarget: %s, hash: %s", fNegative, fOverflow, bnTarget.ToString().c_str(), hash.ToString().c_str());
         return false;
-    }
 
     // Check proof of work matches claimed amount
     if (UintToArith256(hash) > bnTarget)
