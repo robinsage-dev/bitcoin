@@ -9,11 +9,19 @@
 #include <chain.h>
 #include <primitives/block.h>
 #include <uint256.h>
+#include <logging.h>
 
 unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader *pblock, const Consensus::Params& params)
 {
     assert(pindexLast != nullptr);
     unsigned int nProofOfWorkLimit = UintToArith256(params.powLimit).GetCompact();
+    arith_uint256 last_target;
+
+    // KALA: Immediately adjust to min. difficulty (genesis block was mined with very low difficulty)
+    if (last_target.SetCompact(pindexLast->nBits) > UintToArith256(params.powLimit))
+    {
+        return nProofOfWorkLimit;
+    }
 
     // Only change once per difficulty adjustment interval
     if ((pindexLast->nHeight+1) % params.DifficultyAdjustmentInterval() != 0)
@@ -25,14 +33,15 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
             // then allow mining of a min-difficulty block.
             if (pblock->GetBlockTime() > pindexLast->GetBlockTime() + params.nPowTargetSpacing*2)
                 return nProofOfWorkLimit;
-            else
-            {
-                // Return the last non-special-min-difficulty-rules-block
-                const CBlockIndex* pindex = pindexLast;
-                while (pindex->pprev && pindex->nHeight % params.DifficultyAdjustmentInterval() != 0 && pindex->nBits == nProofOfWorkLimit)
-                    pindex = pindex->pprev;
-                return pindex->nBits;
-            }
+            // KALA: This was causing difficulty to revert to genesis block difficulty
+            // else
+            // {
+            //     // Return the last non-special-min-difficulty-rules-block
+            //     const CBlockIndex* pindex = pindexLast;
+            //     while (pindex->pprev && pindex->nHeight % params.DifficultyAdjustmentInterval() != 0 && pindex->nBits == nProofOfWorkLimit)
+            //         pindex = pindex->pprev;
+            //     return pindex->nBits;
+            // }
         }
         return pindexLast->nBits;
     }
@@ -50,7 +59,7 @@ unsigned int CalculateNextWorkRequired(const CBlockIndex* pindexLast, int64_t nF
 {
     if (params.fPowNoRetargeting)
         return pindexLast->nBits;
-
+    
     // Limit adjustment step
     int64_t nActualTimespan = pindexLast->GetBlockTime() - nFirstBlockTime;
     if (nActualTimespan < params.nPowTargetTimespan/4)
