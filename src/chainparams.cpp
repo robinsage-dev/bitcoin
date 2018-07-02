@@ -71,8 +71,8 @@ public:
     {
         strNetworkID = "main";
         consensus.nSubsidyHalvingInterval = 2100000;
-        consensus.BIP16Exception = uint256();
-        consensus.BIP34Height = 0; // BIP34 enabled by default
+        consensus.BIP16Height = 1;
+        consensus.BIP34Height = 1; // BIP34 enabled by default
         consensus.BIP34Hash = uint256();
         consensus.BIP65Height = 1; // BIP65 enabled by default
         consensus.BIP66Height = 1; // BIP66 enabled by default
@@ -169,8 +169,6 @@ public:
             0  //3.5         // * estimated number of transactions per second after that timestamp
         };
 
-        /* disable fallback fee on mainnet */
-        m_fallback_fee_enabled = false;
     }
 };
 
@@ -184,8 +182,8 @@ public:
     {
         strNetworkID = "test";
         consensus.nSubsidyHalvingInterval = 2100000;
-        consensus.BIP16Exception = uint256();
-        consensus.BIP34Height = 0; // BIP34 enabled by default
+        consensus.BIP16Height = 1;
+        consensus.BIP34Height = 1; // BIP34 enabled by default
         consensus.BIP34Hash = uint256();
         consensus.BIP65Height = 1; // BIP65 enabled by default
         consensus.BIP66Height = 1; // BIP66 enabled by default
@@ -259,8 +257,6 @@ public:
             0  //0.09
         };
 
-        /* enable fallback fee on testnet */
-        m_fallback_fee_enabled = true;
     }
 };
 
@@ -274,7 +270,7 @@ public:
     {
         strNetworkID = "regtest";
         consensus.nSubsidyHalvingInterval = 150;
-        consensus.BIP16Exception = uint256();
+        consensus.BIP16Height = 0;
         consensus.BIP34Height = 100000000; // BIP34 has not activated on regtest (far in the future so block v1 are not rejected in tests)
         consensus.BIP34Hash = uint256();
         consensus.BIP65Height = 1351; // BIP65 activated on regtest (Used in rpc activation tests)
@@ -339,8 +335,6 @@ public:
 
         bech32_hrp = "bcrt";
 
-        /* enable fallback fee on regtest */
-        m_fallback_fee_enabled = true;
     }
 };
 
