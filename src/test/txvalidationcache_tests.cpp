@@ -220,6 +220,7 @@ BOOST_FIXTURE_TEST_CASE(checkinputs_test, TestChain100Setup)
 
     block = CreateAndProcessBlock({spend_tx}, p2pk_scriptPubKey);
     BOOST_CHECK(chainActive.Tip()->GetBlockHash() == block.GetHash());
+    BOOST_TEST_MESSAGE(printf("chainActive.Tip()->GetBlockHash(): %s block.GetHash(): %s", chainActive.Tip()->GetBlockHash().ToString().c_str(), block.GetHash().ToString().c_str()));
     BOOST_CHECK(pcoinsTip->GetBestBlock() == block.GetHash());
 
     LOCK(cs_main);
