@@ -1,7 +1,7 @@
 Kala Core integration/staging tree
 =====================================
 
-[![Build Status](https://travis-ci.org/robinsage-dev/kala.svg?branch=kala_customization)](https://travis-ci.org/robinsage-dev/kala)
+[![Build Status](https://travis-ci.org/robinsage-dev/kala.svg?branch=master)](https://travis-ci.org/robinsage-dev/kala)
 
 https://kalatoken.io
 
