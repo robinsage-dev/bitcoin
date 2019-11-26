@@ -58,7 +58,7 @@ unsigned int CalculateNextWorkRequired(const CBlockIndex* pindexLast, int64_t nF
 {
     if (params.fPowNoRetargeting)
         return pindexLast->nBits;
-    
+
     // Limit adjustment step
     int64_t nActualTimespan = pindexLast->GetBlockTime() - nFirstBlockTime;
     if (nActualTimespan < params.nPowTargetTimespan/4)
@@ -84,6 +84,10 @@ bool CheckProofOfWork(uint256 hash, unsigned int nBits, const Consensus::Params&
     bool fNegative;
     bool fOverflow;
     arith_uint256 bnTarget;
+
+    // Skip genesis block (was mined at very low difficulty)
+    if (hash == params.hashGenesisBlock)
+        return true;
 
     bnTarget.SetCompact(nBits, &fNegative, &fOverflow);
 
